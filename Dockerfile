@@ -1,10 +1,10 @@
-FROM alpine:edge
+FROM alpine
 
 WORKDIR /data
 
 RUN apk -U add curl cargo portaudio-dev protobuf-dev \
  && cd /root \
- && curl -LO https://github.com/plietar/librespot/archive/master.zip \
+ && curl -LO https://github.com/librespot-org/librespot/archive/master.zip \
  && unzip master.zip \
  && cd librespot-master \
  && cargo build --jobs $(grep -c ^processor /proc/cpuinfo) --release --no-default-features \
@@ -18,4 +18,4 @@ RUN apk -U add curl cargo portaudio-dev protobuf-dev \
 ENV SPOTIFY_NAME Docker
 ENV SPOTIFY_DEVICE /data/fifo
 
-CMD librespot -n "$SPOTIFY_NAME" -u "$SPOTIFY_USER" -p "$SPOTIFY_PASSWORD" --device "$SPOTIFY_DEVICE"
+CMD librespot -n "$SPOTIFY_NAME" --backend "$LIBRESPOT_BACKEND" --device "$SPOTIFY_DEVICE"
