@@ -2,11 +2,15 @@ FROM alpine
 
 WORKDIR /data
 
-RUN apk -U add cargo alsa-lib-dev \
+RUN apk -U add curl cargo alsa-lib-dev \
  && cd /root \
- && cargo install librespot \
+ && curl -LO https://github.com/librespot-org/librespot/archive/master.zip \
+ && unzip master.zip \
+ && cd librespot-master \
+ && cargo build --jobs $(grep -c ^processor /proc/cpuinfo) --release --no-default-features \
  && mv target/release/librespot /usr/local/bin \
- && mkfifo /data/fifo
+ && mkfifo /data/fifo \
+ && apk add llvm-libunwind
 
 ENV SPOTIFY_NAME Docker
 ENV SPOTIFY_DEVICE /data/fifo
