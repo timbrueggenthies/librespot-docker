@@ -2,7 +2,7 @@ FROM alpine
 
 WORKDIR /data
 
-RUN curl https://sh.rustup.rs -sSf | sh \
+RUN apk -U add cargo \
  && cd /root \
  && cargo install librespot \
  && mkfifo /data/fifo
