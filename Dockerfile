@@ -15,4 +15,4 @@ RUN apk -U add curl cargo alsa-lib-dev \
 ENV SPOTIFY_NAME Docker
 ENV SPOTIFY_DEVICE /data/fifo
 
-CMD librespot -n "$SPOTIFY_NAME" --backend "$LIBRESPOT_BACKEND" --device "$SPOTIFY_DEVICE"
+CMD librespot -n "$SPOTIFY_NAME" --backend "$LIBRESPOT_BACKEND" --device "$SPOTIFY_DEVICE" --zeroconf-port "$3112" --device-type "SPOTIFY_DEVICETYPE"
