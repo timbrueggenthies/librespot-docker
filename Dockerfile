@@ -2,7 +2,7 @@ FROM alpine
 
 WORKDIR /data
 
-RUN apk -U add cargo \
+RUN apk -U add cargo libasound2-dev pkg-config \
  && cd /root \
  && cargo install librespot \
  && mkfifo /data/fifo
