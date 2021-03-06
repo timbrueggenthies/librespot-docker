@@ -5,6 +5,7 @@ WORKDIR /data
 RUN apk -U add cargo alsa-lib-dev \
  && cd /root \
  && cargo install librespot \
+ && mv target/release/librespot /usr/local/bin \
  && mkfifo /data/fifo
 
 ENV SPOTIFY_NAME Docker
